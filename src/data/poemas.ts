@@ -1,21 +1,6 @@
-export type TipoSlide = 'portada' | 'contador' | 'seccion' | 'poema' | 'respiro' | 'cierre';
+export const FECHA_INICIO = new Date('2026-06-20'); // 20 de junio
 
-export interface Slide {
-  id: string;
-  tipo: TipoSlide;
-  seccionNumero?: number;
-  seccionTitulo?: string;
-  seccionSubtitulo?: string;
-  titulo?: string;
-  contenido: string[];
-  fraseOculta?: string;
-  vibracionEntrada?: boolean;
-  autor?: string;
-}
-
-export const FECHA_INICIO = new Date('2026-05-15'); // Cambiar a la fecha real
-
-// Todos los slides en orden
+// Todos los slides en orden - versión definitiva completa
 export const slides: Slide[] = [
   // PORTADA (renderizada por componente aparte)
   // CONTADOR (renderizado por componente aparte)
@@ -60,7 +45,6 @@ export const slides: Slide[] = [
       'y espero que no sea fácil',
       'perdernos.',
     ],
-    fraseOculta: 'La primera vez que te vi, supe que Bogotá me iba a doler cuando me fuera.',
     vibracionEntrada: true,
   },
   {
@@ -118,7 +102,6 @@ export const slides: Slide[] = [
       'y todo nos lleva al mismo punto:',
       'no estamos juntos.',
     ],
-    fraseOculta: 'No te preguntés si yo te extraño. La respuesta es que no dejo de hacerlo.',
   },
   {
     id: 'p4',
@@ -197,6 +180,19 @@ export const slides: Slide[] = [
       'para que me gustara.',
     ],
   },
+  {
+    id: 'p9',
+    tipo: 'poema',
+    seccionNumero: 3,
+    titulo: 'No soy de los que escriben poemas fáciles',
+    contenido: [
+      'No soy de los que escriben',
+      'poemas fáciles,',
+      'pero con vos',
+      'hasta lo difícil',
+      'se me ocurre rápido.',
+    ],
+  },
 
   // === IV. El cuerpo que ya sabe ===
   {
@@ -208,7 +204,7 @@ export const slides: Slide[] = [
     contenido: [],
   },
   {
-    id: 'p9',
+    id: 'p10',
     tipo: 'poema',
     seccionNumero: 4,
     titulo: 'Una semana no es nada',
@@ -223,7 +219,7 @@ export const slides: Slide[] = [
     ],
   },
   {
-    id: 'p10',
+    id: 'p11',
     tipo: 'poema',
     seccionNumero: 4,
     titulo: 'Reservación',
@@ -245,10 +241,9 @@ export const slides: Slide[] = [
       'en que te conociera',
       'para sentir ese cariño.',
     ],
-    fraseOculta: 'Desde antes de que llegaras, ya te estaba extrañando.',
   },
   {
-    id: 'p11',
+    id: 'p12',
     tipo: 'poema',
     seccionNumero: 4,
     contenido: [
@@ -278,7 +273,7 @@ export const slides: Slide[] = [
     contenido: [],
   },
   {
-    id: 'p12',
+    id: 'p13',
     tipo: 'poema',
     seccionNumero: 5,
     titulo: 'Lo que no dije',
@@ -292,7 +287,19 @@ export const slides: Slide[] = [
     ],
   },
   {
-    id: 'p13',
+    id: 'p14',
+    tipo: 'poema',
+    seccionNumero: 5,
+    titulo: 'El viento',
+    contenido: [
+      'El viento se lleva las hojas',
+      'como si no le costara nada.',
+      'Ojalá se lleve también',
+      'este miedo de pensarte tanto.',
+    ],
+  },
+  {
+    id: 'p15',
     tipo: 'poema',
     seccionNumero: 5,
     titulo: 'Miedo',
@@ -329,7 +336,7 @@ export const slides: Slide[] = [
     contenido: [],
   },
   {
-    id: 'p14',
+    id: 'p16',
     tipo: 'poema',
     seccionNumero: 6,
     contenido: [
@@ -339,7 +346,7 @@ export const slides: Slide[] = [
     ],
   },
   {
-    id: 'p15',
+    id: 'p17',
     tipo: 'poema',
     seccionNumero: 6,
     contenido: [
@@ -349,7 +356,19 @@ export const slides: Slide[] = [
     ],
   },
   {
-    id: 'p16',
+    id: 'p18',
+    tipo: 'poema',
+    seccionNumero: 6,
+    contenido: [
+      'Tu frente',
+      'es el lugar exacto',
+      'donde dejo',
+      'los besos que no sé',
+      'explicar con palabras.',
+    ],
+  },
+  {
+    id: 'p19',
     tipo: 'poema',
     seccionNumero: 6,
     contenido: [
@@ -362,7 +381,31 @@ export const slides: Slide[] = [
     ],
   },
   {
-    id: 'p17',
+    id: 'p20',
+    tipo: 'poema',
+    seccionNumero: 6,
+    contenido: [
+      'Si la ternura tuviera olor,',
+      'sería el de tu cuello',
+      'después de un abrazo largo.',
+    ],
+  },
+  {
+    id: 'p21',
+    tipo: 'poema',
+    seccionNumero: 6,
+    contenido: [
+      'No necesito un plan elaborado:',
+      'una tarde sin afán,',
+      'la misma cobija,',
+      'y vos',
+      'contándome cualquier cosa.',
+      'Esa ya sería',
+      'mi cita perfecta.',
+    ],
+  },
+  {
+    id: 'p22',
     tipo: 'poema',
     seccionNumero: 6,
     titulo: 'Tu mano',
@@ -374,7 +417,6 @@ export const slides: Slide[] = [
       'Alcanza con decir',
       'que no quise soltarla.',
     ],
-    fraseOculta: 'Tu mano es la única geografía que necesito.',
   },
   {
     id: 'respiro-2',
@@ -397,7 +439,7 @@ export const slides: Slide[] = [
     contenido: [],
   },
   {
-    id: 'p18',
+    id: 'p23',
     tipo: 'poema',
     seccionNumero: 7,
     titulo: 'No te prometo nada',
@@ -425,7 +467,34 @@ export const slides: Slide[] = [
     contenido: [],
   },
   {
-    id: 'p19',
+    id: 'p24',
+    tipo: 'poema',
+    seccionNumero: 8,
+    titulo: 'Las aves',
+    contenido: [
+      'Las aves parten en invierno',
+      'sin pedir permiso al frío.',
+      'Yo me quedo,',
+      'sin entender bien',
+      'por qué,',
+      'sin importar el tiempo.',
+    ],
+  },
+  {
+    id: 'p25',
+    tipo: 'poema',
+    seccionNumero: 8,
+    titulo: 'El mar',
+    contenido: [
+      'El mar no pregunta',
+      'hacia dónde va la ola.',
+      'Yo tampoco preguntaría',
+      'hacia dónde va esto,',
+      'si supiera que vos vas conmigo.',
+    ],
+  },
+  {
+    id: 'p26',
     tipo: 'poema',
     seccionNumero: 8,
     titulo: 'Antes de España',
@@ -438,7 +507,7 @@ export const slides: Slide[] = [
     ],
   },
   {
-    id: 'p20',
+    id: 'p27',
     tipo: 'poema',
     seccionNumero: 8,
     titulo: 'Esta noche',
@@ -454,6 +523,18 @@ export const slides: Slide[] = [
       'Y eso hoy es suficiente.',
     ],
   },
+  {
+    id: 'p28',
+    tipo: 'poema',
+    seccionNumero: 8,
+    contenido: [
+      'Me gustás',
+      'de una forma que no cabe',
+      'en una sola palabra,',
+      'así que voy a necesitar',
+      'escribir cincuenta más.',
+    ],
+  },
 
   // === IX. Cierre ===
   {
@@ -465,7 +546,7 @@ export const slides: Slide[] = [
     contenido: [],
   },
   {
-    id: 'p21',
+    id: 'p29',
     tipo: 'poema',
     seccionNumero: 9,
     titulo: 'Extrañame',
@@ -522,7 +603,6 @@ export const slides: Slide[] = [
       '',
       'Extrañame.',
     ],
-    fraseOculta: 'Extrañame, y yo te extrañaré el doble.',
     vibracionEntrada: true,
   },
 
