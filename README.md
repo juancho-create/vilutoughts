@@ -1,73 +1,84 @@
-# React + TypeScript + Vite
+# Para Violeta del Mar 🌸
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Un cuaderno digital de poemas interactivos - Una experiencia web inmersiva de poesía romántica.
 
-Currently, two official plugins are available:
+## 📖 Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+"Para Violeta del Mar" es una aplicación web interactiva que presenta una colección de 21 poemas originales organizados en 9 secciones. La experiencia está diseñada como un viaje emocional a través de la llegada, el encuentro, el conocimiento y el deseo en Bogotá.
 
-## React Compiler
+## ✨ Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Navegación inmersiva**: Scroll snap con gestos táctiles, teclado y mouse
+- **Partículas botánicas animadas**: Polen, pétalos y luciérnagas con Canvas API
+- **Audio ambiental**: Sonido de lluvia/jardín generado con Web Audio API
+- **Poemas interactivos**: Frases ocultas reveladas con long-press
+- **Animaciones elegantes**: Transiciones suaves con stagger y efectos de brillo
+- **Reloj en tiempo real**: Hora de Bogotá
+- **Transición visual**: De jardín a mar según la sección del poema
+- **Diseño responsive**: Optimizado para móvil y desktop
+- **Tipografía elegante**: Cormorant Garamond y Whisper
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologías
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19.2.0** + **TypeScript 5.9.3**
+- **Vite 7.2.4** - Build tool y dev server
+- **Tailwind CSS 3.4.19** + **shadcn/ui** - Estilos y componentes
+- **GSAP** - Animaciones
+- **Canvas API** - Partículas animadas
+- **Web Audio API** - Audio ambiental
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Instalación
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# Instalar dependencias
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Iniciar desarrollo
+npm run dev
+
+# Build para producción
+npm run build
+
+# Preview del build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📱 Uso
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Scroll/Táctil**: Desliza hacia arriba/abajo para navegar entre poemas
+- **Teclado**: Usa flechas o espacio para navegar
+- **Long-press**: Mantén presionado para revelar frases ocultas
+- **Doble tap**: Marca un poema como favorito
+- **Audio**: Toca el botón en la esquina superior izquierda para activar el sonido ambiental
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🎨 Secciones
+
+1. La ciudad, la llegada
+2. El encuentro
+3. Conocerte
+4. El cuerpo que ya sabe
+5. Lo que cuesta decir
+6. Ternura
+7. La honestidad
+8. El futuro que todavía no llega
+9. Cierre
+
+## 🌐 Despliegue
+
+Este proyecto está optimizado para desplegar en **Vercel**:
+
+```bash
+# Instalar Vercel CLI
+npm i -g vercel
+
+# Desplegar
+vercel
 ```
+
+## 📄 Licencia
+
+Este proyecto es un regalo personal. Todos los poemas son originales.
+
+---
+
+Hecho con ❤️ en Bogotá
