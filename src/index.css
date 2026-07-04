@@ -1,0 +1,295 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-papel: #F2ECD9;
+    --color-violeta: #8E7A96;
+    --color-salvia: #6B7A5E;
+    --color-tinta: #2E2A22;
+    --color-dorado: #C4A468;
+    --color-mar: #D4DDE5;
+    --color-sombra: rgba(46, 42, 34, 0.06);
+
+    --background: 42 40% 90%;
+    --foreground: 36 14% 15%;
+    --card: 42 40% 90%;
+    --card-foreground: 36 14% 15%;
+    --popover: 42 40% 90%;
+    --popover-foreground: 36 14% 15%;
+    --primary: 280 12% 53%;
+    --primary-foreground: 42 40% 90%;
+    --secondary: 96 13% 42%;
+    --secondary-foreground: 42 40% 90%;
+    --muted: 42 30% 85%;
+    --muted-foreground: 36 10% 40%;
+    --accent: 42 40% 65%;
+    --accent-foreground: 36 14% 15%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 280 12% 53%;
+    --input: 280 12% 53%;
+    --ring: 280 12% 53%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background-color: var(--color-papel);
+    color: var(--color-tinta);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    height: 100%;
+  }
+
+  ::selection {
+    background-color: rgba(142, 122, 150, 0.25);
+    color: var(--color-tinta);
+  }
+}
+
+@layer components {
+  .font-whisper {
+    font-family: 'Whisper', cursive;
+  }
+
+  .font-cormorant {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  /* Slide container */
+  .slide-container {
+    height: 100svh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* Snap scroll wrapper */
+  .snap-scroll {
+    height: 100svh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .snap-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Poema text styling */
+  .poema-titulo {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(0.9rem, 2.8vw, 1.1rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-violeta);
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+
+  .poema-body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.15rem, 3.8vw, 1.45rem);
+    font-weight: 400;
+    line-height: 2;
+    color: var(--color-tinta);
+    letter-spacing: 0.01em;
+  }
+
+  .poema-linea {
+    min-height: 1em;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .poema-linea.vacia {
+    height: 0.8em;
+  }
+
+  /* Respiro literario */
+  .respiro-texto {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1rem, 3.2vw, 1.25rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 2;
+    color: var(--color-tinta);
+    opacity: 0.75;
+  }
+
+  .respiro-autor {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(0.7rem, 2vw, 0.8rem);
+    font-weight: 400;
+    color: var(--color-violeta);
+    opacity: 0.5;
+    letter-spacing: 0.08em;
+    margin-top: 2rem;
+  }
+
+  /* Seccion header */
+  .seccion-numero {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 600;
+    color: var(--color-violeta);
+    opacity: 0.3;
+    line-height: 1;
+  }
+
+  .seccion-titulo {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1rem, 3.2vw, 1.3rem);
+    font-weight: 500;
+    font-style: italic;
+    color: var(--color-tinta);
+    opacity: 0.6;
+    letter-spacing: 0.02em;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes vibracion-brillo {
+    0% { text-shadow: 0 0 0px transparent; }
+    30% { text-shadow: 0 0 16px rgba(196, 164, 104, 0.6); }
+    60% { text-shadow: 0 0 8px rgba(196, 164, 104, 0.3); }
+    100% { text-shadow: 0 0 0px transparent; }
+  }
+
+  @keyframes estrella-destello {
+    0% { opacity: 0; transform: scale(0) rotate(0deg); }
+    40% { opacity: 1; transform: scale(1.3) rotate(180deg); }
+    100% { opacity: 0; transform: scale(0) rotate(360deg); }
+  }
+
+  @keyframes pulse-suave {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes bounce-suave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  @keyframes pageTurn {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(-90deg); }
+  }
+
+  @keyframes revealLine {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .anim-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .anim-slide-right {
+    animation: slideInFromRight 0.7s ease-out forwards;
+  }
+
+  .vibracion-brillo {
+    animation: vibracion-brillo 0.4s ease-out;
+  }
+
+  .estrella-destello {
+    animation: estrella-destello 1s ease-out forwards;
+  }
+
+  .bounce-infinito {
+    animation: bounce-suave 2.5s ease-in-out infinite;
+  }
+
+  /* Long press hint */
+  .press-hint {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.65rem;
+    color: var(--color-violeta);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    letter-spacing: 0.05em;
+    font-style: italic;
+  }
+
+  .slide-container.active .press-hint {
+    opacity: 0.25;
+    transition-delay: 1.5s;
+  }
+
+  /* Line stagger animation */
+  .line-stagger {
+    opacity: 0;
+  }
+
+  .line-stagger.visible {
+    animation: revealLine 0.6s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .text-violeta { color: var(--color-violeta); }
+  .text-salvia { color: var(--color-salvia); }
+  .text-tinta { color: var(--color-tinta); }
+  .text-dorado { color: var(--color-dorado); }
+  .bg-papel { background-color: var(--color-papel); }
+  .bg-mar { background-color: var(--color-mar); }
+  .border-violeta { border-color: var(--color-violeta); }
+  .border-salvia { border-color: var(--color-salvia); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
