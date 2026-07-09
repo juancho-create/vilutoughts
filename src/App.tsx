@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer
 import { nightProgressForIndex, screens, type Screen } from './data/poems';
 import { usePageNav } from './hooks/usePageNav';
 import { useAmbientAudio } from './hooks/useAmbientAudio';
+import { useVisitTracking } from './hooks/useVisitTracking';
 import Cover from './components/Cover';
 import Poem from './components/Poem';
 import Breath from './components/Breath';
@@ -51,6 +52,7 @@ export default function App() {
   const screen = screens[index];
   const night = nightProgressForIndex(index);
   const audio = useAmbientAudio(night);
+  useVisitTracking(screen.kind === 'closing');
   const bg = mix(PAPER, NIGHT, night);
 
   // El texto NO se interpola linealmente (eso lo llevaba a un gris ilegible en

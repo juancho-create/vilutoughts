@@ -60,6 +60,24 @@ vercel --prod # despliegue de producción
 Luego se comparte el link resultante. Los metadatos Open Graph hacen que se vea
 bien al compartir por WhatsApp.
 
+### 📊 Analíticas (quién entra, desde qué dispositivo, cuánto tiempo)
+
+El proyecto incluye **Vercel Web Analytics** (`@vercel/analytics`). Tras el
+primer deploy con este cambio:
+
+1. En el dashboard de Vercel, abrí el proyecto → pestaña **Analytics** → click
+   en **Enable** (una sola vez; el plan Hobby incluye una cuota mensual de
+   eventos gratis).
+2. Ahí vas a ver **visitantes, páginas vistas, país, sistema operativo,
+   navegador y tipo de dispositivo** (móvil / escritorio / tablet) de forma
+   nativa, sin nada más que configurar.
+3. **Cuánto tiempo** no es un dato que Vercel muestre de fábrica, así que se
+   agregó un evento personalizado: al salir de la página se envía
+   `time_on_book` con la duración agrupada en rangos (0–30s, 30–60s, 1–3 min,
+   3–5 min, 5–10 min, 10+ min). También se envía `reached_closing` la primera
+   vez que se llega a la última pantalla, para saber si la lectura se
+   completó. Ambos se ven en Analytics → **Events**.
+
 ## 📁 Estructura
 
 ```
@@ -68,8 +86,9 @@ src/
   components/          → Cover, Poem, Breath, Closing, NavArrow,
                          PageIndicator, AudioToggle, FloralArt (SVG)
   hooks/
-    usePageNav.ts      → navegación (swipe / tap / teclado + dirección)
-    useAmbientAudio.ts → crossfade Particles ↔ Epilogue con Web Audio API
+    usePageNav.ts        → navegación (swipe / tap / teclado + dirección)
+    useAmbientAudio.ts   → crossfade Particles ↔ Epilogue con Web Audio API
+    useVisitTracking.ts  → evento de duración y de lectura completa (Analytics)
   styles/              → global.css (tokens, reset) + components.css
   App.tsx              → escenario, transición y transición día → noche
 public/
