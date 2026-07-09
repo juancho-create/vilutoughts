@@ -4,7 +4,6 @@ import { nightProgressForIndex, screens, type Screen } from './data/poems';
 import { usePageNav } from './hooks/usePageNav';
 import { useAmbientAudio } from './hooks/useAmbientAudio';
 import Cover from './components/Cover';
-import Counter from './components/Counter';
 import Poem from './components/Poem';
 import Breath from './components/Breath';
 import Closing from './components/Closing';
@@ -29,8 +28,6 @@ function renderScreen(screen: Screen) {
   switch (screen.kind) {
     case 'cover':
       return <Cover />;
-    case 'counter':
-      return <Counter />;
     case 'poem':
       return <Poem title={screen.title} lines={screen.lines} />;
     case 'breath':

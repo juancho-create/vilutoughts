@@ -9,17 +9,12 @@
 
 export type Screen =
   | { kind: 'cover' }
-  | { kind: 'counter' }
   | { kind: 'poem'; title?: string; lines: string[] }
   | { kind: 'breath'; lines: string[]; author: string }
   | { kind: 'closing' };
 
-/** Fecha desde la que cuenta el contador de días (20 de junio de 2025). */
-export const COUNTER_START = '2025-06-20T00:00:00';
-
 export const screens: Screen[] = [
   { kind: 'cover' },
-  { kind: 'counter' },
 
   // 1 — Bogotá (parte 1)
   {
