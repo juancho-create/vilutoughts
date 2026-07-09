@@ -16,7 +16,7 @@ export default function Closing() {
         }
         style={{ opacity: 0.35 }}
       >
-        <Monogram color="var(--night-text)" size={150} />
+        <Monogram draw color="var(--night-text)" size={150} />
       </motion.div>
     </div>
   );

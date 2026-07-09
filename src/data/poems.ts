@@ -558,13 +558,33 @@ export const screens: Screen[] = [
     ],
   },
 
+  // 39 — Nota final: escrita desde el ahora (ya de noviazgo), cierra el arco
+  // que "Extrañame." dejó abierto. Se lee en plena noche.
+  {
+    kind: 'poem',
+    lines: [
+      'Ya no tengo que pedirte que me extrañes.',
+      'Ahora te tengo.',
+      'Y resulta',
+      'que tenerte',
+      'cuesta más de escribir',
+      'que extrañarte.',
+      '',
+      'Tres semanas.',
+      'Sigo sin encontrar la palabra.',
+      'Así que voy a seguir',
+      'escribiendo.',
+    ],
+  },
+
   { kind: 'closing' },
 ];
 
 /**
  * Progreso de la transición día → noche (0 = papel, 1 = noche cerrada).
- * Las cuatro partes de "Extrañame" y el cierre son las últimas cinco pantallas,
- * así que las derivamos desde el final de la lista: robusto ante reordenamientos.
+ * Las cuatro partes de "Extrañame", la nota final y el cierre son las últimas
+ * seis pantallas; se derivan desde el final de la lista, así el mapa resiste
+ * reordenamientos del resto del cuaderno.
  */
 export function nightProgressForIndex(index: number): number {
   const last = screens.length - 1;
@@ -572,12 +592,14 @@ export function nightProgressForIndex(index: number): number {
     case last:
       return 1; // closing
     case last - 1:
-      return 0.82; // Extrañame p4
+      return 0.94; // nota final (ya en plena noche)
     case last - 2:
-      return 0.6; // Extrañame p3
+      return 0.8; // Extrañame p4
     case last - 3:
-      return 0.38; // Extrañame p2
+      return 0.6; // Extrañame p3
     case last - 4:
+      return 0.38; // Extrañame p2
+    case last - 5:
       return 0.18; // Extrañame p1
     default:
       return 0;
