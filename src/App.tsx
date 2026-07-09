@@ -1,187 +1,138 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { slidesContenido } from './data/poemas';
-import type { Slide } from './data/poemas';
-import ParticulasBotanicas from './components/ParticulasBotanicas';
-import Portada from './components/Portada';
-import PantallaContador from './components/PantallaContador';
-import SlidePoema from './components/SlidePoema';
-import SlideRespiro from './components/SlideRespiro';
-import SlideSeccion from './components/SlideSeccion';
-import SlideCierre from './components/SlideCierre';
-import Navegacion from './components/Navegacion';
-import AudioControl from './components/AudioControl';
+import { useEffect, type CSSProperties } from 'react';
+import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
+import { nightProgressForIndex, screens, type Screen } from './data/poems';
+import { usePageNav } from './hooks/usePageNav';
+import { useAmbientAudio } from './hooks/useAmbientAudio';
+import Cover from './components/Cover';
+import Poem from './components/Poem';
+import Breath from './components/Breath';
+import Closing from './components/Closing';
+import NavArrow from './components/NavArrow';
+import PageIndicator from './components/PageIndicator';
+import AudioToggle from './components/AudioToggle';
 
-// Combina portada, contador y todos los slides de contenido
-const allSlides: Slide[] = [
-  { id: '__portada', tipo: 'portada', contenido: [] },
-  { id: '__contador', tipo: 'contador', contenido: [] },
-  ...slidesContenido,
-];
+/* Colores para la transición día → noche (interpolación en RGB). */
+const PAPER = [0xf4, 0xef, 0xe4];
+const NIGHT = [0x13, 0x13, 0x20];
+const INK = [0x23, 0x1f, 0x1a];
+const NIGHT_TEXT = [0xd4, 0xcc, 0xbe];
+
+/** Mezcla dos colores RGB y devuelve `#rrggbb`. */
+function mix(a: number[], b: number[], t: number): string {
+  const h = (n: number) => Math.round(n).toString(16).padStart(2, '0');
+  return '#' + a.map((av, i) => h(av + (b[i] - av) * t)).join('');
+}
+
+/** Componente de contenido para cada tipo de pantalla. */
+function renderScreen(screen: Screen) {
+  switch (screen.kind) {
+    case 'cover':
+      return <Cover />;
+    case 'poem':
+      return <Poem title={screen.title} lines={screen.lines} />;
+    case 'breath':
+      return <Breath lines={screen.lines} author={screen.author} />;
+    case 'closing':
+      return <Closing />;
+  }
+}
 
 export default function App() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [seccionMar, setSeccionMar] = useState(false);
-  const isNavigating = useRef(false);
+  const reduce = useReducedMotion();
+  const nav = usePageNav(screens.length);
+  const audio = useAmbientAudio();
+  const { index, direction } = nav;
 
-  // Detectar slide activo con IntersectionObserver
+  const screen = screens[index];
+  const night = nightProgressForIndex(index);
+  const bg = mix(PAPER, NIGHT, night);
+  const text = mix(INK, NIGHT_TEXT, night);
+
+  // Sincroniza el color de la barra del navegador con la transición nocturna.
   useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', bg);
+  }, [bg]);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (isNavigating.current) return;
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = Number((entry.target as HTMLElement).dataset.index);
-            if (!isNaN(idx)) {
-              setActiveIndex(idx);
-            }
-          }
-        });
-      },
-      {
-        root: container,
-        threshold: 0.6,
-      }
-    );
+  // Al llegar al cierre, el pad ambiental se desvanece en 3s.
+  useEffect(() => {
+    if (screen.kind === 'closing') audio.fadeOut(3);
+    // Solo depende del tipo de pantalla; `audio.fadeOut` es estable.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen.kind]);
 
-    const children = container.querySelectorAll('[data-index]');
-    children.forEach((child) => observer.observe(child));
-
-    return () => observer.disconnect();
+  // Evita el menú contextual en longpress (móvil).
+  useEffect(() => {
+    const onCtx = (e: Event) => e.preventDefault();
+    document.addEventListener('contextmenu', onCtx);
+    return () => document.removeEventListener('contextmenu', onCtx);
   }, []);
 
-  // Transición al mar basada en slide activo
-  useEffect(() => {
-    // Encontrar índices de sección VIII y cierre
-    const idxVIII = allSlides.findIndex((s) => s.id === 'sec-VIII');
-    const idxCierre = allSlides.findIndex((s) => s.id === 'cierre-final');
-
-    if (activeIndex >= idxVIII && activeIndex < idxCierre) {
-      const progress = (activeIndex - idxVIII) / (idxCierre - idxVIII);
-      setSeccionMar(progress > 0.2);
-    } else if (activeIndex >= idxCierre) {
-      setSeccionMar(true);
-    } else {
-      setSeccionMar(false);
-    }
-  }, [activeIndex]);
-
-  // Navegación programática
-  const navigateTo = useCallback((index: number) => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    isNavigating.current = true;
-    const children = container.querySelectorAll('[data-index]');
-    const target = children[index] as HTMLElement;
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setActiveIndex(index);
-    }
-    setTimeout(() => {
-      isNavigating.current = false;
-    }, 600);
-  }, []);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
-        e.preventDefault();
-        if (activeIndex < allSlides.length - 1) navigateTo(activeIndex + 1);
-      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-        e.preventDefault();
-        if (activeIndex > 0) navigateTo(activeIndex - 1);
+  // Variantes del "pasar hoja": respetan dirección y prefers-reduced-motion.
+  const pageVariants: Variants = reduce
+    ? {
+        enter: { opacity: 0 },
+        center: { opacity: 1, transition: { duration: 0.25 } },
+        exit: { opacity: 0, transition: { duration: 0.2 } },
       }
-    };
+    : {
+        enter: (dir: number) => ({
+          y: dir >= 0 ? '100%' : '-100%',
+          rotateX: dir >= 0 ? -6 : 6,
+          opacity: 0,
+        }),
+        center: {
+          y: 0,
+          rotateX: 0,
+          opacity: 1,
+          transition: { delay: 0.08, duration: 0.55, ease: [0.4, 0, 0.2, 1] },
+        },
+        exit: (dir: number) => ({
+          y: dir >= 0 ? '-100%' : '100%',
+          rotateX: dir >= 0 ? 6 : -6,
+          opacity: 0,
+          transition: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
+        }),
+      };
 
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [activeIndex, navigateTo]);
+  const stageStyle = {
+    '--stage-bg': bg,
+    '--stage-text': text,
+  } as unknown as CSSProperties;
 
-  // Touch swipe navigation
-  useEffect(() => {
-    let touchStartY = 0;
-    let touchEndY = 0;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.changedTouches[0].screenY;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      touchEndY = e.changedTouches[0].screenY;
-      const diff = touchStartY - touchEndY;
-      if (Math.abs(diff) > 60) {
-        if (diff > 0 && activeIndex < allSlides.length - 1) {
-          navigateTo(activeIndex + 1);
-        } else if (diff < 0 && activeIndex > 0) {
-          navigateTo(activeIndex - 1);
-        }
-      }
-    };
-
-    const container = scrollRef.current;
-    if (container) {
-      container.addEventListener('touchstart', handleTouchStart, { passive: true });
-      container.addEventListener('touchend', handleTouchEnd, { passive: true });
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('touchstart', handleTouchStart);
-        container.removeEventListener('touchend', handleTouchEnd);
-      }
-    };
-  }, [activeIndex, navigateTo]);
-
-  const currentSlide = allSlides[activeIndex];
+  const wrapperClass =
+    'screen' +
+    (screen.kind === 'breath'
+      ? ' screen--breath'
+      : screen.kind === 'closing'
+        ? ' screen--closing'
+        : '');
 
   return (
-    <div className="h-[100svh] w-full relative overflow-hidden" style={{ touchAction: 'pan-y' }}>
-      {/* Partículas botánicas - SIEMPRE activas */}
-      <ParticulasBotanicas seccionMar={seccionMar} />
+    <div className="stage" style={stageStyle}>
+      <div className="paper-texture" />
 
-      {/* Audio control */}
-      <AudioControl />
+      <AnimatePresence custom={direction} initial={false}>
+        <motion.div
+          key={index}
+          className={wrapperClass}
+          custom={direction}
+          variants={pageVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+        >
+          {renderScreen(screen)}
+        </motion.div>
+      </AnimatePresence>
 
-      {/* Contenedor snap scroll */}
-      <div ref={scrollRef} className="snap-scroll w-full h-full relative">
-        {allSlides.map((slide, index) => (
-          <div key={slide.id} data-index={index} className="w-full">
-            {slide.tipo === 'portada' && <Portada isActive={activeIndex === index} />}
-            {slide.tipo === 'contador' && <PantallaContador isActive={activeIndex === index} />}
-            {slide.tipo === 'seccion' && <SlideSeccion slide={slide} isActive={activeIndex === index} />}
-            {slide.tipo === 'poema' && <SlidePoema slide={slide} isActive={activeIndex === index} />}
-            {slide.tipo === 'respiro' && <SlideRespiro slide={slide} isActive={activeIndex === index} />}
-            {slide.tipo === 'cierre' && <SlideCierre isActive={activeIndex === index} />}
-          </div>
-        ))}
-      </div>
+      <AudioToggle enabled={audio.enabled} onToggle={audio.toggle} />
 
-      {/* Navegación lateral */}
-      <Navegacion
-        total={allSlides.length}
-        current={activeIndex}
-        onNavigate={navigateTo}
-      />
-
-      {/* Indicador de sección actual (subtle) */}
-      <div
-        className="fixed bottom-5 left-0 right-0 text-center z-40 pointer-events-none"
-        style={{
-          opacity: currentSlide?.seccionNumero ? 0.25 : 0,
-          transition: 'opacity 0.5s ease',
-        }}
-      >
-        <span className="text-violeta font-cormorant text-xs tracking-[0.15em]">
-          {currentSlide?.tipo === 'poema' || currentSlide?.tipo === 'respiro'
-            ? `— ${currentSlide.seccionNumero} —`
-            : ''}
-        </span>
-      </div>
+      {index >= 1 && index < screens.length - 1 && (
+        <PageIndicator count={screens.length} index={index} />
+      )}
+      {index === 0 && <NavArrow onClick={nav.goNext} />}
     </div>
   );
 }

@@ -1,0 +1,123 @@
+/* ==========================================================================
+   Para Violeta del Mar — estilos globales
+   Cuaderno digital de poemas. Cálido, hecho a mano; los poemas mandan.
+   ========================================================================== */
+
+:root {
+  /* Paleta (definida en el brief) */
+  --paper: #F4EFE4;       /* fondo papel */
+  --paper-dark: #E8E0D0;  /* fondo de los respiros */
+  --ink: #231F1A;         /* texto */
+  --ink-soft: #7A6E62;    /* subtítulos, atribuciones */
+  --violet: #8B7BA8;      /* acento */
+  --gold: #B8925A;        /* títulos de poema */
+  --night: #131320;       /* fondo final */
+  --night-text: #D4CCBE;  /* texto sobre azul */
+
+  /* Estas dos las controla App.tsx para la transición nocturna.
+     Arrancan en papel/tinta y se interpolan hacia night/night-text. */
+  --stage-bg: var(--paper);
+  --stage-text: var(--ink);
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'EB Garamond', Georgia, serif;
+}
+
+/* Reset mínimo ------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Bloqueo total del scroll nativo: esto es un libro, no una página que scrollea */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+  background-color: var(--night); /* evita flashes claros en los bordes al oscurecer */
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Se lee como carta, no como texto seleccionable; evita el resaltado al tap */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#root {
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Ocultar scrollbars por si algún contenedor los intenta mostrar */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::selection {
+  background-color: rgba(139, 123, 168, 0.25);
+  color: inherit;
+}
+
+/* Escenario: una pantalla a la vez, con perspectiva para el "pasar hoja" ---- */
+.stage {
+  position: relative;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+  perspective: 1200px;
+  background-color: var(--stage-bg);
+  color: var(--stage-text);
+  transition: background-color 0.55s ease, color 0.55s ease;
+}
+
+/* Cada pantalla ocupa todo el viewport y se apila en el mismo lugar */
+.screen {
+  position: absolute;
+  inset: 0;
+  height: 100dvh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  padding: max(3.5rem, env(safe-area-inset-top)) 1.75rem
+    max(4.5rem, env(safe-area-inset-bottom));
+}
+
+/* Textura de papel: feTurbulence inline como data-URI, casi imperceptible ---- */
+.paper-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Accesibilidad: respetar reduced-motion ---------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.08s !important;
+  }
+}
