@@ -34,14 +34,21 @@
 
 /* --- Cover ---------------------------------------------------------------- */
 .cover {
-  gap: 1.75rem;
+  gap: 1.4rem;
   text-align: center;
 }
-.cover__spray {
-  opacity: 0.9;
+/* El marco aporta el fondo papel contra el que el multiply funde
+   los bordes blancos de la ilustración (isolation crea el contexto). */
+.cover__art-frame {
+  isolation: isolate;
+  background-color: var(--paper);
+  display: flex;
 }
-.cover__monogram {
-  margin: 0.25rem 0;
+.cover__art {
+  max-height: 46dvh;
+  max-width: 80vw;
+  width: auto;
+  mix-blend-mode: multiply;
 }
 .cover__title {
   font-family: var(--font-display);
@@ -59,6 +66,17 @@
   font-size: clamp(0.95rem, 3.6vw, 1.15rem);
   color: var(--ink-soft);
   letter-spacing: 0.06em;
+}
+.cover__dedication {
+  margin-top: 0.6rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(0.82rem, 3.1vw, 0.98rem);
+  line-height: 1.6;
+  color: var(--violet);
+  letter-spacing: 0.03em;
+  opacity: 0.85;
 }
 
 /* --- Counter -------------------------------------------------------------- */
