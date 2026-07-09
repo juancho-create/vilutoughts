@@ -23,6 +23,12 @@ function mix(a: number[], b: number[], t: number): string {
   return '#' + a.map((av, i) => h(av + (b[i] - av) * t)).join('');
 }
 
+/** Interpolación suave (S-curve) entre dos umbrales. */
+function smoothstep(edge0: number, edge1: number, x: number): number {
+  const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
+  return t * t * (3 - 2 * t);
+}
+
 /** Componente de contenido para cada tipo de pantalla. */
 function renderScreen(screen: Screen) {
   switch (screen.kind) {
@@ -46,7 +52,13 @@ export default function App() {
   const screen = screens[index];
   const night = nightProgressForIndex(index);
   const bg = mix(PAPER, NIGHT, night);
-  const text = mix(INK, NIGHT_TEXT, night);
+
+  // El texto NO se interpola linealmente (eso lo llevaba a un gris ilegible en
+  // el punto medio). En su lugar pasa de tinta oscura a crema clara alrededor
+  // del punto donde el fondo ya se oscureció, y un halo lo despega del fondo.
+  const textPhase = smoothstep(0.4, 0.58, night); // 0 = texto oscuro · 1 = claro
+  const text = mix(INK, NIGHT_TEXT, textPhase);
+  const textHalo = `rgba(8, 6, 14, ${(0.9 * textPhase).toFixed(3)})`;
 
   // Sincroniza el color de la barra del navegador con la transición nocturna.
   useEffect(() => {
@@ -99,6 +111,7 @@ export default function App() {
   const stageStyle = {
     '--stage-bg': bg,
     '--stage-text': text,
+    '--text-halo': textHalo,
   } as unknown as CSSProperties;
 
   const wrapperClass =

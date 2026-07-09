@@ -572,13 +572,13 @@ export function nightProgressForIndex(index: number): number {
     case last:
       return 1; // closing
     case last - 1:
-      return 0.9; // Extrañame p4
+      return 0.82; // Extrañame p4
     case last - 2:
-      return 0.7; // Extrañame p3
+      return 0.6; // Extrañame p3
     case last - 3:
-      return 0.45; // Extrañame p2
+      return 0.38; // Extrañame p2
     case last - 4:
-      return 0.2; // Extrañame p1
+      return 0.18; // Extrañame p1
     default:
       return 0;
   }

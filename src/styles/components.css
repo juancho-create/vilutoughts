@@ -139,9 +139,12 @@
   align-self: center;
   text-align: left;
   font-family: var(--font-body);
-  font-size: clamp(14px, 3.8vw, 19px);
-  line-height: 1.85;
+  /* Tamaño legible (accesibilidad): mínimo 16px, sin llegar a ser enorme */
+  font-size: clamp(16px, 4.5vw, 21px);
+  line-height: 1.8;
   color: inherit; /* hereda el color del escenario (transición nocturna) */
+  /* Halo adaptativo que separa el texto del fondo en la transición nocturna */
+  text-shadow: 0 0 10px var(--text-halo, transparent);
 }
 .poem__line {
   display: block;
