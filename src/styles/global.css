@@ -82,7 +82,8 @@ body {
   perspective: 1200px;
   background-color: var(--stage-bg);
   color: var(--stage-text);
-  transition: background-color 0.55s ease, color 0.55s ease;
+  /* Asentamiento suave del color al cambiar de página (más lento que el giro) */
+  transition: background-color 1.05s ease-in-out, color 1.05s ease-in-out;
 }
 
 /* Cada pantalla ocupa todo el viewport y se apila en el mismo lugar */

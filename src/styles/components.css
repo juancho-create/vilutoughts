@@ -18,8 +18,6 @@
 }
 
 /* Contenedores de contenido: columna centrada, por encima de la textura */
-.cover,
-.counter,
 .poem,
 .breath,
 .closing {
@@ -33,22 +31,58 @@
 }
 
 /* --- Cover ---------------------------------------------------------------- */
+/* A diferencia de las demás pantallas, .cover NO vive dentro del padding de
+   `.screen`: es `position:absolute; inset:0` para que la ilustración llegue
+   a los bordes reales. El padding se reaplica aquí mismo, así que el texto
+   sigue a salvo del borde aunque la imagen sangre completa. */
 .cover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 1.4rem;
   text-align: center;
+  padding: max(3.5rem, env(safe-area-inset-top)) 1.75rem
+    max(4.5rem, env(safe-area-inset-bottom));
 }
-/* El marco aporta el fondo papel contra el que el multiply funde
-   los bordes blancos de la ilustración (isolation crea el contexto). */
+/* La ilustración es el fondo completo de la portada (a sangre, sin recuadro).
+   `inset:0` la ancla al borde real de la pantalla, ignorando el padding que
+   `.screen` aplica a su contenido (ver nota en global.css). */
 .cover__art-frame {
-  isolation: isolate;
-  background-color: var(--paper);
-  display: flex;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
 .cover__art {
-  max-height: 46dvh;
-  max-width: 80vw;
-  width: auto;
-  mix-blend-mode: multiply;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* Halo de papel detrás del texto: sin esto, el título queda ilegible sobre
+   las flores. Se concentra donde vive el texto y deja ver la ilustración
+   completa en los bordes. */
+.cover__scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 85% 60% at 50% 66%,
+    rgba(244, 239, 228, 0.92) 0%,
+    rgba(244, 239, 228, 0.72) 40%,
+    rgba(244, 239, 228, 0.28) 65%,
+    rgba(244, 239, 228, 0) 82%
+  );
+}
+/* position:relative en los tres: sin esto quedan "sin posicionar" y el
+   scrim/imagen (que sí son position:absolute) los pintan por encima aunque
+   vayan antes en el DOM. */
+.cover__title,
+.cover__subtitle,
+.cover__dedication {
+  position: relative;
 }
 .cover__title {
   font-family: var(--font-display);
@@ -139,9 +173,12 @@
   align-self: center;
   text-align: left;
   font-family: var(--font-body);
-  font-size: clamp(14px, 3.8vw, 19px);
-  line-height: 1.85;
+  /* Tamaño legible (accesibilidad): mínimo 16px, sin llegar a ser enorme */
+  font-size: clamp(16px, 4.5vw, 21px);
+  line-height: 1.8;
   color: inherit; /* hereda el color del escenario (transición nocturna) */
+  /* Halo adaptativo que separa el texto del fondo en la transición nocturna */
+  text-shadow: 0 0 10px var(--text-halo, transparent);
 }
 .poem__line {
   display: block;

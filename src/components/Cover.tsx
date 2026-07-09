@@ -7,7 +7,7 @@ export default function Cover() {
 
   return (
     <motion.div
-      className="screen cover"
+      className="cover"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: reduce ? 0.4 : 2.5, ease: 'easeOut' }}
@@ -15,6 +15,7 @@ export default function Cover() {
       <div className="cover__art-frame">
         <img className="cover__art" src={coverArt} alt="" aria-hidden="true" />
       </div>
+      <div className="cover__scrim" aria-hidden="true" />
       <h1 className="cover__title">Para Violeta del Mar</h1>
       <p className="cover__subtitle">Un cuaderno de poemas</p>
       <p className="cover__dedication">
