@@ -46,11 +46,11 @@ function renderScreen(screen: Screen) {
 export default function App() {
   const reduce = useReducedMotion();
   const nav = usePageNav(screens.length);
-  const audio = useAmbientAudio();
   const { index, direction } = nav;
 
   const screen = screens[index];
   const night = nightProgressForIndex(index);
+  const audio = useAmbientAudio(night);
   const bg = mix(PAPER, NIGHT, night);
 
   // El texto NO se interpola linealmente (eso lo llevaba a un gris ilegible en
@@ -66,13 +66,6 @@ export default function App() {
       .querySelector('meta[name="theme-color"]')
       ?.setAttribute('content', bg);
   }, [bg]);
-
-  // Al llegar al cierre, el pad ambiental se desvanece en 3s.
-  useEffect(() => {
-    if (screen.kind === 'closing') audio.fadeOut(3);
-    // Solo depende del tipo de pantalla; `audio.fadeOut` es estable.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screen.kind]);
 
   // Evita el menú contextual en longpress (móvil).
   useEffect(() => {
