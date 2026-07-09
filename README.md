@@ -8,7 +8,7 @@ una carta hecha a mano. Los poemas mandan; los efectos nunca compiten con ellos.
 
 - **Portada** con violetas y helechos dibujados en SVG y un monograma que se
   dibuja solo al entrar.
-- **38 poemas** y **2 respiros literarios** (Bécquer y Amado Nervo), en orden.
+- **39 poemas** y **2 respiros literarios** (Bécquer y Amado Nervo), en orden.
 - Transición **"pasar hoja"** con Framer Motion, respetando la dirección del gesto.
 - Las últimas pantallas ("Extrañame") **oscurecen** el papel de día a noche.
 - **Cierre** con el monograma respirando sobre azul noche.

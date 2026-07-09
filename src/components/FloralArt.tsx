@@ -1,8 +1,12 @@
 import { motion, useReducedMotion } from 'framer-motion';
 
 /**
- * FloralArt — <Monogram/>: monograma floral dibujado en SVG inline,
- * con animación de trazo opcional (usado en el cierre).
+ * FloralArt — <Monogram/>: una violeta dibujada en SVG inline, línea fina,
+ * con animación de trazo opcional. Es el sello del cuaderno (pantalla final).
+ *
+ * Anatomía de violeta real: dos pétalos superiores, dos laterales y uno
+ * inferior más amplio; centro dorado; tallo curvado con dos hojas
+ * acorazonadas, como las de la portada.
  */
 
 interface MonogramProps {
@@ -15,22 +19,23 @@ interface MonogramProps {
   style?: React.CSSProperties;
 }
 
-// Trazos del monograma: una "V" botánica con hojas y una violeta arriba.
-const MONOGRAM_PATHS = [
-  // Tallo izquierdo de la V
-  'M40 34 C 44 58, 52 74, 60 92',
-  // Tallo derecho de la V
-  'M80 34 C 76 58, 68 74, 60 92',
-  // Hoja izquierda
-  'M46 52 C 34 50, 28 56, 30 64 C 40 64, 46 60, 46 52 Z',
-  // Hoja derecha
-  'M74 52 C 86 50, 92 56, 90 64 C 80 64, 74 60, 74 52 Z',
-  // Pétalos de la violeta (arriba, centro)
-  'M60 30 C 52 22, 44 26, 46 34 C 50 40, 58 38, 60 30 Z',
-  'M60 30 C 68 22, 76 26, 74 34 C 70 40, 62 38, 60 30 Z',
-  'M60 30 C 56 20, 64 20, 60 30 Z',
-  // Frond central que sube
-  'M60 30 C 60 24, 60 18, 60 12',
+const VIOLET_PATHS = [
+  // Pétalo superior izquierdo
+  'M58 44 C 52 30, 40 30, 42 41 C 43 49, 53 50, 58 44 Z',
+  // Pétalo superior derecho
+  'M62 44 C 68 30, 80 30, 78 41 C 77 49, 67 50, 62 44 Z',
+  // Pétalo lateral izquierdo
+  'M56 48 C 44 44, 35 52, 42 60 C 48 65, 56 57, 56 48 Z',
+  // Pétalo lateral derecho
+  'M64 48 C 76 44, 85 52, 78 60 C 72 65, 64 57, 64 48 Z',
+  // Pétalo inferior (el más amplio, típico de la violeta)
+  'M60 52 C 50 58, 50 72, 60 74 C 70 72, 70 58, 60 52 Z',
+  // Tallo (curva suave hacia abajo)
+  'M60 74 C 62 84, 58 92, 60 104',
+  // Hoja izquierda (acorazonada)
+  'M59 86 C 48 82, 40 87, 43 95 C 49 100, 58 94, 59 86 Z',
+  // Hoja derecha (acorazonada, un poco más abajo)
+  'M61 94 C 72 90, 80 95, 77 103 C 71 108, 62 102, 61 94 Z',
 ];
 
 export function Monogram({
@@ -53,7 +58,7 @@ export function Monogram({
       style={style}
       aria-hidden="true"
     >
-      {MONOGRAM_PATHS.map((d, i) => (
+      {VIOLET_PATHS.map((d, i) => (
         <motion.path
           key={i}
           d={d}
@@ -65,20 +70,20 @@ export function Monogram({
           animate={shouldDraw ? { pathLength: 1, opacity: 1 } : undefined}
           transition={
             shouldDraw
-              ? { duration: 1.6, delay: 0.3 + i * 0.18, ease: 'easeInOut' }
+              ? { duration: 1.4, delay: 0.3 + i * 0.22, ease: 'easeInOut' }
               : undefined
           }
         />
       ))}
-      {/* Centro de la violeta */}
+      {/* Centro de la flor */}
       <motion.circle
         cx={60}
-        cy={31}
-        r={1.6}
+        cy={48}
+        r={2}
         fill="var(--gold)"
         initial={shouldDraw ? { opacity: 0 } : false}
         animate={shouldDraw ? { opacity: 1 } : undefined}
-        transition={shouldDraw ? { duration: 0.6, delay: 1.9 } : undefined}
+        transition={shouldDraw ? { duration: 0.6, delay: 2.1 } : undefined}
       />
     </svg>
   );
