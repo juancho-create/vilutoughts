@@ -558,17 +558,17 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 39 — Nota final: escrita desde el ahora (ya de noviazgo), cierra el arco
-  // que "Extrañame." dejó abierto. Se lee en plena noche.
+  // 39 — Nota final: escrita desde el ahora (ya de noviazgo), responde al
+  // "Extrañame." con que terminaba el cuaderno. El pedido fue concedido
+  // ("y viniste") y el cierre promete en vez de pedir. Se lee en plena noche.
   {
     kind: 'poem',
     lines: [
-      'Ya no tengo que pedirte que me extrañes.',
-      'Ahora te tengo.',
-      'Y resulta',
-      'que tenerte',
-      'cuesta más de escribir',
-      'que extrañarte.',
+      'Te pedí que me extrañaras',
+      'y viniste.',
+      '',
+      'Ahora no sé qué pedirte',
+      'que no me hayas dado ya.',
       '',
       'Tres semanas.',
       'Sigo sin encontrar la palabra.',
