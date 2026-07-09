@@ -1,25 +1,31 @@
-export const FECHA_INICIO = new Date('2026-06-20'); // 20 de junio
+/* ==========================================================================
+   data/poems.ts
+   Todo el contenido del cuaderno, como una lista ordenada de pantallas.
+   Reordenar o añadir un poema es tan simple como mover/insertar un objeto aquí.
 
-// Todos los slides en orden - versión definitiva completa
-export const slides: Slide[] = [
-  // PORTADA (renderizada por componente aparte)
-  // CONTADOR (renderizado por componente aparte)
+   Convención: dentro de `lines`, una cadena vacía ('') marca el fin de una
+   estrofa (línea en blanco). Cada string no vacío es un verso.
+   ========================================================================== */
 
-  // === I. La ciudad, la llegada ===
+export type Screen =
+  | { kind: 'cover' }
+  | { kind: 'counter' }
+  | { kind: 'poem'; title?: string; lines: string[] }
+  | { kind: 'breath'; lines: string[]; author: string }
+  | { kind: 'closing' };
+
+/** Fecha desde la que cuenta el contador de días (20 de junio de 2025). */
+export const COUNTER_START = '2025-06-20T00:00:00';
+
+export const screens: Screen[] = [
+  { kind: 'cover' },
+  { kind: 'counter' },
+
+  // 1 — Bogotá (parte 1)
   {
-    id: 'sec-I',
-    tipo: 'seccion',
-    seccionNumero: 1,
-    seccionTitulo: 'I',
-    seccionSubtitulo: 'La ciudad, la llegada',
-    contenido: [],
-  },
-  {
-    id: 'p1',
-    tipo: 'poema',
-    seccionNumero: 1,
-    titulo: 'Bogotá',
-    contenido: [
+    kind: 'poem',
+    title: 'Bogotá',
+    lines: [
       'No sé qué motivo me trajo hasta aquí,',
       'no recuerdo cómo llegué,',
       'hace tiempo, pero ya no recuerdo.',
@@ -33,7 +39,13 @@ export const slides: Slide[] = [
       'Duda para amar, quiero saber más de vos.',
       'Aunque no supe ser buen conversador,',
       'intento escribirte.',
-      '',
+    ],
+  },
+
+  // 2 — Bogotá (parte 2)
+  {
+    kind: 'poem',
+    lines: [
       'Bogotá, ciudad fría,',
       'pero en tus ojos hubo compañía.',
       'En tus ojos vi la luna.',
@@ -45,14 +57,13 @@ export const slides: Slide[] = [
       'y espero que no sea fácil',
       'perdernos.',
     ],
-    vibracionEntrada: true,
   },
+
+  // 3 — El clima de tu voz
   {
-    id: 'p2',
-    tipo: 'poema',
-    seccionNumero: 1,
-    titulo: 'El clima de tu voz',
-    contenido: [
+    kind: 'poem',
+    title: 'El clima de tu voz',
+    lines: [
       'Bogotá amanece fría casi siempre.',
       'Yo ya aprendí a vivir con eso.',
       '',
@@ -63,21 +74,11 @@ export const slides: Slide[] = [
     ],
   },
 
-  // === II. El encuentro ===
+  // 4 — Casualidad (parte 1)
   {
-    id: 'sec-II',
-    tipo: 'seccion',
-    seccionNumero: 2,
-    seccionTitulo: 'II',
-    seccionSubtitulo: 'El encuentro',
-    contenido: [],
-  },
-  {
-    id: 'p3',
-    tipo: 'poema',
-    seccionNumero: 2,
-    titulo: 'Casualidad',
-    contenido: [
+    kind: 'poem',
+    title: 'Casualidad',
+    lines: [
       'Te conocí por casualidad',
       'y esa misma casualidad',
       'ahora tiene un motivo y tiene un nombre.',
@@ -86,11 +87,16 @@ export const slides: Slide[] = [
       'cuando estamos tan cerca,',
       'cuando el tiempo no nos sobra.',
       'Sentirte tan cerca es tan difícil.',
-      '',
+    ],
+  },
+
+  // 5 — Casualidad (parte 2)
+  {
+    kind: 'poem',
+    lines: [
       'Aunque no hablemos,',
       'me preguntás si te extraño',
       'y claro que sí.',
-      '',
       'No te preguntés si yo te extraño',
       'por miedo a morir en una respuesta falsa.',
       '',
@@ -103,89 +109,74 @@ export const slides: Slide[] = [
       'no estamos juntos.',
     ],
   },
+
+  // 6 — (sin título)
   {
-    id: 'p4',
-    tipo: 'poema',
-    seccionNumero: 2,
-    contenido: [
+    kind: 'poem',
+    lines: [
       'Hace dos semanas no te conocía',
       'y hoy ansío vernos juntos.',
-      '',
       'Sin saber si volverás,',
       'sin saber si llegaremos a ser.',
     ],
   },
+
+  // 7 — Primera vez que escribí tu nombre
   {
-    id: 'p5',
-    tipo: 'poema',
-    seccionNumero: 2,
-    titulo: 'Primera vez que escribí tu nombre',
-    contenido: [
+    kind: 'poem',
+    title: 'Primera vez que escribí tu nombre',
+    lines: [
       'La primera vez que escribí tu nombre',
       'no sabía que iba a costarme tanto',
       'no escribir nada más.',
     ],
   },
 
-  // === III. Conocerte ===
+  // 8 — Lo que no sé de vos
   {
-    id: 'sec-III',
-    tipo: 'seccion',
-    seccionNumero: 3,
-    seccionTitulo: 'III',
-    seccionSubtitulo: 'Conocerte',
-    contenido: [],
-  },
-  {
-    id: 'p6',
-    tipo: 'poema',
-    seccionNumero: 3,
-    titulo: 'Lo que no sé de vos',
-    contenido: [
+    kind: 'poem',
+    title: 'Lo que no sé de vos',
+    lines: [
       'No sé tu comida favorita,',
       'no sé cómo eras de niña,',
       'no sé casi nada de vos.',
-      '',
       'Pero ya sé que quiero saberlo,',
       'aunque no sepa todavía',
       'para qué.',
     ],
   },
+
+  // 9 — Tu nombre en la lista
   {
-    id: 'p7',
-    tipo: 'poema',
-    seccionNumero: 3,
-    titulo: 'Tu nombre en la lista',
-    contenido: [
+    kind: 'poem',
+    title: 'Tu nombre en la lista',
+    lines: [
       'Guardé tu nombre en el teléfono',
       'sin apellido,',
       'sin apodo,',
       'solo tu nombre,',
-      '',
       'como si no hiciera falta',
       'nada más para encontrarte.',
     ],
   },
+
+  // 10 — Tu risa
   {
-    id: 'p8',
-    tipo: 'poema',
-    seccionNumero: 3,
-    titulo: 'Tu risa',
-    contenido: [
+    kind: 'poem',
+    title: 'Tu risa',
+    lines: [
       'Esta semana fue dura,',
       'no te voy a mentir.',
-      '',
       'Pero tu risa',
       'fue lo único que no tuve que esforzarme',
       'para que me gustara.',
     ],
   },
+
+  // 11 — (sin título)
   {
-    id: 'p9',
-    tipo: 'poema',
-    seccionNumero: 3,
-    titulo: 'No soy de los que escriben poemas fáciles',
-    contenido: [
+    kind: 'poem',
+    lines: [
       'No soy de los que escriben',
       'poemas fáciles,',
       'pero con vos',
@@ -194,36 +185,25 @@ export const slides: Slide[] = [
     ],
   },
 
-  // === IV. El cuerpo que ya sabe ===
+  // 12 — Una semana no es nada
   {
-    id: 'sec-IV',
-    tipo: 'seccion',
-    seccionNumero: 4,
-    seccionTitulo: 'IV',
-    seccionSubtitulo: 'El cuerpo que ya sabe',
-    contenido: [],
-  },
-  {
-    id: 'p10',
-    tipo: 'poema',
-    seccionNumero: 4,
-    titulo: 'Una semana no es nada',
-    contenido: [
+    kind: 'poem',
+    title: 'Una semana no es nada',
+    lines: [
       'Una semana no es nada,',
       'lo sé,',
       'lo repito para que se me grabe.',
-      '',
       'Pero el cuerpo no entiende de calendarios',
       'y el cuerpo, con vos,',
       'ya tiene sus propias razones.',
     ],
   },
+
+  // 13 — Reservación (parte 1)
   {
-    id: 'p11',
-    tipo: 'poema',
-    seccionNumero: 4,
-    titulo: 'Reservación',
-    contenido: [
+    kind: 'poem',
+    title: 'Reservación',
+    lines: [
       'No tengo tanto tiempo,',
       'pero cuando tengo tiempo te pienso.',
       'Te quiero. Te extraño.',
@@ -232,134 +212,91 @@ export const slides: Slide[] = [
       'pero parece mucho.',
       '¿Qué faltaba aquí,',
       'en ese espacio que no estaba vacío?',
-      '',
+    ],
+  },
+
+  // 14 — Reservación (parte 2)
+  {
+    kind: 'poem',
+    lines: [
       'Porque tenía una reservación para vos',
       'desde antes de que llegaras,',
       'desde antes de que me faltaras.',
-      '',
       'Solo esperaba el momento',
       'en que te conociera',
       'para sentir ese cariño.',
     ],
   },
-  {
-    id: 'p12',
-    tipo: 'poema',
-    seccionNumero: 4,
-    contenido: [
-      'Esa mirada. Ese abrazo.',
-      'Es muy extraño.',
-      '',
-      'Yo soy romántico,',
-      'no tan romántico,',
-      'pero así sentí',
-      'cuando pensé que vos',
-      'querías estar aquí.',
-      '',
-      'Los días son largos',
-      'y las noches son cortas.',
-      'Quisiera tener tiempo de sobra',
-      'para abrazarte.',
-    ],
-  },
 
-  // === V. Lo que cuesta decir ===
+  // 15 — Lo que no dije
   {
-    id: 'sec-V',
-    tipo: 'seccion',
-    seccionNumero: 5,
-    seccionTitulo: 'V',
-    seccionSubtitulo: 'Lo que cuesta decir',
-    contenido: [],
-  },
-  {
-    id: 'p13',
-    tipo: 'poema',
-    seccionNumero: 5,
-    titulo: 'Lo que no dije',
-    contenido: [
+    kind: 'poem',
+    title: 'Lo que no dije',
+    lines: [
       'Hay cosas que no te dije',
       'porque sonaban',
       'más grandes de lo que yo mismo entendía.',
-      '',
       'Capaz las digo después.',
       'Capaz las estoy diciendo ahora.',
     ],
   },
+
+  // 16 — (sin título)
   {
-    id: 'p14',
-    tipo: 'poema',
-    seccionNumero: 5,
-    titulo: 'El viento',
-    contenido: [
+    kind: 'poem',
+    lines: [
       'El viento se lleva las hojas',
       'como si no le costara nada.',
       'Ojalá se lleve también',
       'este miedo de pensarte tanto.',
     ],
   },
+
+  // 17 — Miedo
   {
-    id: 'p15',
-    tipo: 'poema',
-    seccionNumero: 5,
-    titulo: 'Miedo',
-    contenido: [
+    kind: 'poem',
+    title: 'Miedo',
+    lines: [
       'Tengo miedo,',
       'no te voy a decir que no.',
-      '',
       'Miedo de ir muy rápido,',
       'miedo de equivocarme otra vez.',
-      '',
       'Pero más miedo me da',
       'no intentarlo.',
     ],
   },
+
+  // 18 — Respiro (Amado Nervo)
   {
-    id: 'respiro-1',
-    tipo: 'respiro',
-    seccionNumero: 5,
-    contenido: [
+    kind: 'breath',
+    author: 'Amado Nervo',
+    lines: [
       'Me besaba mucho, como si temiera irse muy temprano.',
       'Su cariño era inquieto, nervioso,',
       'yo no comprendía tan febril premura.',
     ],
-    autor: 'Amado Nervo',
   },
 
-  // === VI. Ternura ===
+  // 19 — (sin título)
   {
-    id: 'sec-VI',
-    tipo: 'seccion',
-    seccionNumero: 6,
-    seccionTitulo: 'VI',
-    seccionSubtitulo: 'Ternura',
-    contenido: [],
-  },
-  {
-    id: 'p16',
-    tipo: 'poema',
-    seccionNumero: 6,
-    contenido: [
+    kind: 'poem',
+    lines: [
       'Pude ver mi reflejo en tus ojos,',
       'solo un segundo',
       'pues no pude sostenerte la mirada.',
     ],
   },
+
+  // 20 — (sin título)
   {
-    id: 'p17',
-    tipo: 'poema',
-    seccionNumero: 6,
-    contenido: [
-      'Tus cachetes:',
-      'pistas de aterrizaje',
-      'para mis besos.',
-    ],
+    kind: 'poem',
+    lines: ['Tus cachetes:', 'pistas de aterrizaje', 'para mis besos.'],
   },
+
+  // 21 — (sin título)
   {
-    id: 'p18',
-    tipo: 'poema',
-    seccionNumero: 6,
-    contenido: [
+    kind: 'poem',
+    lines: [
       'Tu frente',
       'es el lugar exacto',
       'donde dejo',
@@ -367,11 +304,11 @@ export const slides: Slide[] = [
       'explicar con palabras.',
     ],
   },
+
+  // 22 — (sin título)
   {
-    id: 'p19',
-    tipo: 'poema',
-    seccionNumero: 6,
-    contenido: [
+    kind: 'poem',
+    lines: [
       'Como leve brisa',
       'dejabas caer tus besos sobre mis labios,',
       'y como la tierra mojada',
@@ -380,21 +317,21 @@ export const slides: Slide[] = [
       'algo que olía a ternura.',
     ],
   },
+
+  // 23 — (sin título)
   {
-    id: 'p20',
-    tipo: 'poema',
-    seccionNumero: 6,
-    contenido: [
+    kind: 'poem',
+    lines: [
       'Si la ternura tuviera olor,',
       'sería el de tu cuello',
       'después de un abrazo largo.',
     ],
   },
+
+  // 24 — (sin título)
   {
-    id: 'p21',
-    tipo: 'poema',
-    seccionNumero: 6,
-    contenido: [
+    kind: 'poem',
+    lines: [
       'No necesito un plan elaborado:',
       'una tarde sin afán,',
       'la misma cobija,',
@@ -404,74 +341,49 @@ export const slides: Slide[] = [
       'mi cita perfecta.',
     ],
   },
+
+  // 25 — Tu mano
   {
-    id: 'p22',
-    tipo: 'poema',
-    seccionNumero: 6,
-    titulo: 'Tu mano',
-    contenido: [
+    kind: 'poem',
+    title: 'Tu mano',
+    lines: [
       'No hace falta que diga',
       'todo lo que pensé',
       'cuando tomé tu mano.',
-      '',
       'Alcanza con decir',
       'que no quise soltarla.',
     ],
   },
+
+  // 26 — Respiro (Gustavo Adolfo Bécquer)
   {
-    id: 'respiro-2',
-    tipo: 'respiro',
-    seccionNumero: 6,
-    contenido: [
+    kind: 'breath',
+    author: 'Gustavo Adolfo Bécquer',
+    lines: [
       'El alma que hablar puede con los ojos,',
       'también puede besar con la mirada.',
     ],
-    autor: 'Gustavo Adolfo Bécquer',
   },
 
-  // === VII. La honestidad ===
+  // 27 — No te prometo nada
   {
-    id: 'sec-VII',
-    tipo: 'seccion',
-    seccionNumero: 7,
-    seccionTitulo: 'VII',
-    seccionSubtitulo: 'La honestidad',
-    contenido: [],
-  },
-  {
-    id: 'p23',
-    tipo: 'poema',
-    seccionNumero: 7,
-    titulo: 'No te prometo nada',
-    contenido: [
+    kind: 'poem',
+    title: 'No te prometo nada',
+    lines: [
       'No te voy a prometer',
       'que esto va a durar para siempre.',
-      '',
       'No sé prometer esas cosas',
       'y no quiero mentirte desde el primer mensaje.',
-      '',
       'Lo único que tengo',
       'es esto: ahora,',
       'y ganas de que haya un después.',
     ],
-    vibracionEntrada: true,
   },
 
-  // === VIII. El futuro que todavía no llega ===
+  // 28 — (sin título)
   {
-    id: 'sec-VIII',
-    tipo: 'seccion',
-    seccionNumero: 8,
-    seccionTitulo: 'VIII',
-    seccionSubtitulo: 'El futuro que todavía no llega',
-    contenido: [],
-  },
-  {
-    id: 'p24',
-    tipo: 'poema',
-    seccionNumero: 8,
-    titulo: 'Las aves',
-    contenido: [
+    kind: 'poem',
+    lines: [
       'Las aves parten en invierno',
       'sin pedir permiso al frío.',
       'Yo me quedo,',
@@ -480,12 +392,11 @@ export const slides: Slide[] = [
       'sin importar el tiempo.',
     ],
   },
+
+  // 29 — (sin título)
   {
-    id: 'p25',
-    tipo: 'poema',
-    seccionNumero: 8,
-    titulo: 'El mar',
-    contenido: [
+    kind: 'poem',
+    lines: [
       'El mar no pregunta',
       'hacia dónde va la ola.',
       'Yo tampoco preguntaría',
@@ -493,12 +404,12 @@ export const slides: Slide[] = [
       'si supiera que vos vas conmigo.',
     ],
   },
+
+  // 30 — Antes de España
   {
-    id: 'p26',
-    tipo: 'poema',
-    seccionNumero: 8,
-    titulo: 'Antes de España',
-    contenido: [
+    kind: 'poem',
+    title: 'Antes de España',
+    lines: [
       'No quiero pensar en España todavía.',
       'Faltan meses',
       'y yo apenas estoy aprendiendo',
@@ -506,28 +417,26 @@ export const slides: Slide[] = [
       'sin que me tiemble la voz.',
     ],
   },
+
+  // 31 — Esta noche
   {
-    id: 'p27',
-    tipo: 'poema',
-    seccionNumero: 8,
-    titulo: 'Esta noche',
-    contenido: [
+    kind: 'poem',
+    title: 'Esta noche',
+    lines: [
       'Sé que en unos meses',
       'puede haber un océano de por medio.',
-      '',
       'Pero hoy hay una mesa,',
       'una cena,',
       'una calle de Bogotá',
       'y vos.',
-      '',
       'Y eso hoy es suficiente.',
     ],
   },
+
+  // 32 — (sin título)
   {
-    id: 'p28',
-    tipo: 'poema',
-    seccionNumero: 8,
-    contenido: [
+    kind: 'poem',
+    lines: [
       'Me gustás',
       'de una forma que no cabe',
       'en una sola palabra,',
@@ -536,21 +445,11 @@ export const slides: Slide[] = [
     ],
   },
 
-  // === IX. Cierre ===
+  // 33 — Extrañame (parte 1)  ── comienza la transición nocturna
   {
-    id: 'sec-IX',
-    tipo: 'seccion',
-    seccionNumero: 9,
-    seccionTitulo: 'IX',
-    seccionSubtitulo: 'Cierre',
-    contenido: [],
-  },
-  {
-    id: 'p29',
-    tipo: 'poema',
-    seccionNumero: 9,
-    titulo: 'Extrañame',
-    contenido: [
+    kind: 'poem',
+    title: 'Extrañame',
+    lines: [
       'Tres semanas quisiera llevarte conociendo,',
       'para que pensés cuánto tiempo te he pensado.',
       'Aunque parezca poco.',
@@ -558,7 +457,13 @@ export const slides: Slide[] = [
       'Hace una semana que llegué,',
       'hace una semana que te vi,',
       'hace menos de una semana que te abracé.',
-      '',
+    ],
+  },
+
+  // 34 — Extrañame (parte 2)
+  {
+    kind: 'poem',
+    lines: [
       'Es difícil pensar.',
       'Quiero pensar en otra cosa',
       'pero no tengo tiempo para no pensarte.',
@@ -572,7 +477,13 @@ export const slides: Slide[] = [
       'querido, extrañado,',
       'deseado.',
       '¿Qué faltaba?',
-      '',
+    ],
+  },
+
+  // 35 — Extrañame (parte 3)
+  {
+    kind: 'poem',
+    lines: [
       'El amor es un sentimiento que pocos entienden.',
       'Una decisión hace parte de quererte.',
       'El cariño es una cosa,',
@@ -581,7 +492,13 @@ export const slides: Slide[] = [
       'a tenerte lejos.',
       '',
       'Espero no serte indiferente.',
-      '',
+    ],
+  },
+
+  // 36 — Extrañame (parte 4)
+  {
+    kind: 'poem',
+    lines: [
       'La luz de la luna te sienta bien.',
       'Pero esa noche',
       'no era la luna:',
@@ -603,21 +520,30 @@ export const slides: Slide[] = [
       '',
       'Extrañame.',
     ],
-    vibracionEntrada: true,
   },
 
-  // CIERRE: solo el logo
-  {
-    id: 'cierre-final',
-    tipo: 'cierre',
-    contenido: [],
-  },
+  { kind: 'closing' },
 ];
 
-// Extraer solo los slides que van después de portada y contador
-export const slidesContenido = slides.filter(
-  (s) => s.tipo !== 'portada' && s.tipo !== 'contador'
-);
-
-// Total para navegación
-export const totalSlides = slidesContenido.length;
+/**
+ * Progreso de la transición día → noche (0 = papel, 1 = noche cerrada).
+ * Las cuatro partes de "Extrañame" y el cierre son las últimas cinco pantallas,
+ * así que las derivamos desde el final de la lista: robusto ante reordenamientos.
+ */
+export function nightProgressForIndex(index: number): number {
+  const last = screens.length - 1;
+  switch (index) {
+    case last:
+      return 1; // closing
+    case last - 1:
+      return 0.9; // Extrañame p4
+    case last - 2:
+      return 0.7; // Extrañame p3
+    case last - 3:
+      return 0.45; // Extrañame p2
+    case last - 4:
+      return 0.2; // Extrañame p1
+    default:
+      return 0;
+  }
+}
