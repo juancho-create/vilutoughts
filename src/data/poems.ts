@@ -74,7 +74,18 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 4 — Casualidad (parte 1)
+  // 4 — (sin título) Manos frías
+  {
+    kind: 'poem',
+    lines: [
+      'Bogotá tiene la culpa',
+      'de mis manos frías.',
+      'Vos tenés la culpa',
+      'de que ya no me importe.',
+    ],
+  },
+
+  // 5 — Casualidad (parte 1)
   {
     kind: 'poem',
     title: 'Casualidad',
@@ -90,7 +101,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 5 — Casualidad (parte 2)
+  // 6 — Casualidad (parte 2)
   {
     kind: 'poem',
     lines: [
@@ -110,17 +121,6 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 6 — (sin título)
-  {
-    kind: 'poem',
-    lines: [
-      'Hace dos semanas no te conocía',
-      'y hoy ansío vernos juntos.',
-      'Sin saber si volverás,',
-      'sin saber si llegaremos a ser.',
-    ],
-  },
-
   // 7 — Primera vez que escribí tu nombre
   {
     kind: 'poem',
@@ -132,21 +132,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 8 — Lo que no sé de vos
-  {
-    kind: 'poem',
-    title: 'Lo que no sé de vos',
-    lines: [
-      'No sé tu comida favorita,',
-      'no sé cómo eras de niña,',
-      'no sé casi nada de vos.',
-      'Pero ya sé que quiero saberlo,',
-      'aunque no sepa todavía',
-      'para qué.',
-    ],
-  },
-
-  // 9 — Tu nombre en la lista
+  // 8 — Tu nombre en la lista
   {
     kind: 'poem',
     title: 'Tu nombre en la lista',
@@ -160,7 +146,35 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 10 — Tu risa
+  // 9 — (sin título) Flor y mar
+  {
+    kind: 'poem',
+    lines: [
+      'Tu nombre tiene una flor',
+      'y tiene el mar.',
+      'Yo no sé de flores',
+      'y le tengo miedo al mar.',
+      'Pero acá estoy:',
+      'regando esto todos los días,',
+      'aprendiendo a nadar.',
+    ],
+  },
+
+  // 10 — Lo que no sé de vos
+  {
+    kind: 'poem',
+    title: 'Lo que no sé de vos',
+    lines: [
+      'No sé tu comida favorita,',
+      'no sé cómo eras de niña,',
+      'no sé casi nada de vos.',
+      'Pero ya sé que quiero saberlo,',
+      'aunque no sepa todavía',
+      'para qué.',
+    ],
+  },
+
+  // 11 — Tu risa
   {
     kind: 'poem',
     title: 'Tu risa',
@@ -173,7 +187,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 11 — (sin título)
+  // 12 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -185,7 +199,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 12 — Una semana no es nada
+  // 13 — Una semana no es nada
   {
     kind: 'poem',
     title: 'Una semana no es nada',
@@ -199,7 +213,20 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 13 — Reservación (parte 1)
+  // 14 — (sin título) «escribiendo…»
+  {
+    kind: 'poem',
+    lines: [
+      'Cuando aparece «escribiendo…»',
+      'debajo de tu nombre,',
+      'me quedo quieto,',
+      'como si moverme',
+      'pudiera borrar',
+      'lo que estás por decirme.',
+    ],
+  },
+
+  // 15 — Reservación (parte 1)
   {
     kind: 'poem',
     title: 'Reservación',
@@ -212,13 +239,7 @@ export const screens: Screen[] = [
       'pero parece mucho.',
       '¿Qué faltaba aquí,',
       'en ese espacio que no estaba vacío?',
-    ],
-  },
-
-  // 14 — Reservación (parte 2)
-  {
-    kind: 'poem',
-    lines: [
+      '',
       'Porque tenía una reservación para vos',
       'desde antes de que llegaras,',
       'desde antes de que me faltaras.',
@@ -228,7 +249,27 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 15 — Lo que no dije
+  // 16 — Reservación (parte 2)
+  {
+    kind: 'poem',
+    lines: [
+      'Esa mirada. Ese abrazo.',
+      'Es muy extraño.',
+      '',
+      'Yo soy romántico,',
+      'no tan romántico,',
+      'pero así sentí',
+      'cuando pensé que vos',
+      'querías estar aquí.',
+      '',
+      'Los días son largos',
+      'y las noches son cortas.',
+      'Quisiera tener tiempo de sobra',
+      'para abrazarte.',
+    ],
+  },
+
+  // 17 — Lo que no dije
   {
     kind: 'poem',
     title: 'Lo que no dije',
@@ -241,7 +282,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 16 — (sin título)
+  // 18 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -252,7 +293,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 17 — Miedo
+  // 19 — Miedo
   {
     kind: 'poem',
     title: 'Miedo',
@@ -266,18 +307,17 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 18 — Respiro (Amado Nervo)
+  // 20 — Respiro (Gustavo Adolfo Bécquer) — abre la suite de miradas y ternura
   {
     kind: 'breath',
-    author: 'Amado Nervo',
+    author: 'Gustavo Adolfo Bécquer',
     lines: [
-      'Me besaba mucho, como si temiera irse muy temprano.',
-      'Su cariño era inquieto, nervioso,',
-      'yo no comprendía tan febril premura.',
+      'El alma que hablar puede con los ojos,',
+      'también puede besar con la mirada.',
     ],
   },
 
-  // 19 — (sin título)
+  // 21 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -287,13 +327,13 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 20 — (sin título)
+  // 22 — (sin título)
   {
     kind: 'poem',
     lines: ['Tus cachetes:', 'pistas de aterrizaje', 'para mis besos.'],
   },
 
-  // 21 — (sin título)
+  // 23 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -305,7 +345,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 22 — (sin título)
+  // 24 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -318,17 +358,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 23 — (sin título)
-  {
-    kind: 'poem',
-    lines: [
-      'Si la ternura tuviera olor,',
-      'sería el de tu cuello',
-      'después de un abrazo largo.',
-    ],
-  },
-
-  // 24 — (sin título)
+  // 25 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -342,7 +372,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 25 — Tu mano
+  // 26 — Tu mano
   {
     kind: 'poem',
     title: 'Tu mano',
@@ -355,17 +385,28 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 26 — Respiro (Gustavo Adolfo Bécquer)
+  // 27 — (sin título)
   {
-    kind: 'breath',
-    author: 'Gustavo Adolfo Bécquer',
+    kind: 'poem',
     lines: [
-      'El alma que hablar puede con los ojos,',
-      'también puede besar con la mirada.',
+      'Si la ternura tuviera olor,',
+      'sería el de tu cuello',
+      'después de un abrazo largo.',
     ],
   },
 
-  // 27 — No te prometo nada
+  // 28 — Respiro (Amado Nervo) — "temiera irse muy temprano" abre las promesas
+  {
+    kind: 'breath',
+    author: 'Amado Nervo',
+    lines: [
+      'Me besaba mucho, como si temiera irse muy temprano.',
+      'Su cariño era inquieto, nervioso,',
+      'yo no comprendía tan febril premura.',
+    ],
+  },
+
+  // 29 — No te prometo nada
   {
     kind: 'poem',
     title: 'No te prometo nada',
@@ -380,7 +421,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 28 — (sin título)
+  // 30 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -393,7 +434,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 29 — (sin título)
+  // 31 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -405,7 +446,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 30 — Antes de España
+  // 32 — Antes de España
   {
     kind: 'poem',
     title: 'Antes de España',
@@ -418,7 +459,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 31 — Esta noche
+  // 33 — Esta noche
   {
     kind: 'poem',
     title: 'Esta noche',
@@ -433,7 +474,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 32 — (sin título)
+  // 34 — (sin título)
   {
     kind: 'poem',
     lines: [
@@ -445,7 +486,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 33 — Extrañame (parte 1)  ── comienza la transición nocturna
+  // 35 — Extrañame (parte 1)  ── comienza la transición nocturna
   {
     kind: 'poem',
     title: 'Extrañame',
@@ -460,7 +501,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 34 — Extrañame (parte 2)
+  // 36 — Extrañame (parte 2)
   {
     kind: 'poem',
     lines: [
@@ -480,11 +521,11 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 35 — Extrañame (parte 3)
+  // 37 — Extrañame (parte 3)
   {
     kind: 'poem',
     lines: [
-      'El amor es un sentimiento que pocos entienden.',
+      'Del amor entiendo poco.',
       'Una decisión hace parte de quererte.',
       'El cariño es una cosa,',
       'quererte es otra,',
@@ -495,7 +536,7 @@ export const screens: Screen[] = [
     ],
   },
 
-  // 36 — Extrañame (parte 4)
+  // 38 — Extrañame (parte 4)
   {
     kind: 'poem',
     lines: [
